@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/fdainesdesafiowalmart/search-service#readme",
   "dependencies": {
+    "axios": "^0.19.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "mongoose": "^5.10.0",

@@ -24,6 +24,7 @@ describe('Search Endpoint', () => {
 
       const res = await request(app)
         .get('/search')
+        .query({ pattern: 'Test1' })
 
       expect(res.statusCode).toEqual(200)
     })
