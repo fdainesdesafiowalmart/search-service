@@ -72,7 +72,6 @@ describe('Application:UseCases', () => {
 
       const result = await searchProducts(mockRepository, searchPattern)
 
-
       expect(result).toStrictEqual(expectedResult)
       expect(mockRepository.findProductById).toHaveBeenCalledWith(searchPattern)
     })
@@ -99,6 +98,18 @@ describe('Application:UseCases', () => {
 
       expect(result).toStrictEqual(mockResponse)
       expect(mockRepository.findProducts).toHaveBeenCalledWith(searchPattern)
+    })
+
+    it('should return undefined when an error occurred', async () => {
+      mockRepository.findProductById.mockImplementation(() => {
+        throw new Error('error details')
+      })
+      const searchPattern = '123'
+
+      const result = await searchProducts(mockRepository, searchPattern)
+
+      expect(mockRepository.findProductById).toHaveBeenCalledWith(searchPattern)
+      expect(result).toBe(undefined)
     })
 
   })

@@ -5,7 +5,7 @@ const getProducts = async (req, res, next) => {
   const { query } = req
 
   const response = await searchProducts(productsRepository, query.pattern)
-  if(response === undefined) {
+  if (response === undefined) {
     res.status(500).json({ message: 'Error interno' })
     return next(false)
   } else {
