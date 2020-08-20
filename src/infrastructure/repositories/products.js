@@ -7,7 +7,7 @@ const findProductById = async (id) => {
     if (response.status === 200) {
       return {
         total: response.data.id ? 1 : 0,
-        products: [response.data]
+        products: response.data.id ? [response.data] : []
       }
     }
   } catch (error) {
@@ -28,7 +28,7 @@ const findProducts = async (pattern) => {
       return response.data
     }
   } catch (error) {
-    console.log('Error: ' + error)
+    console.log('ErrorX: ' + error)
   }
 
   return {
