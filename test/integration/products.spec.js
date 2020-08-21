@@ -58,7 +58,7 @@ describe('Search Endpoint', () => {
       const expectedResponse = {
         total: 1,
         products: [
-          { foo: 'bar', price: 617 }
+          { foo: 'bar', price: 617, discount: 50, originalPrice: 1234 }
         ]
       }
 

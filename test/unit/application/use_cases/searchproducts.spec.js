@@ -23,9 +23,9 @@ describe('Application:UseCases', () => {
         { foo: 'bar3', price: 300 }
       ]
       const expectedResult = [
-        { foo: 'bar1', price: 50 },
-        { foo: 'bar2', price: 100 },
-        { foo: 'bar3', price: 150 }
+        { foo: 'bar1', price: 50, discount: 50, originalPrice: 100 },
+        { foo: 'bar2', price: 100, discount: 50, originalPrice: 200 },
+        { foo: 'bar3', price: 150, discount: 50, originalPrice: 300 }
       ]
 
       const result = applyDiscount(searchPattern, baseProducts)
@@ -66,7 +66,7 @@ describe('Application:UseCases', () => {
       const expectedResult = {
         total: 1,
         products: [
-          { foo: 'bar1', price: 50 }
+          { foo: 'bar1', price: 50, discount: 50, originalPrice: 100 },
         ]
       }
 

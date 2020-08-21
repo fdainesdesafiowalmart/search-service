@@ -6,6 +6,8 @@ const applyDiscount = (pattern, products) => {
     return products.map(product => {
       return {
         ...product,
+        originalPrice: product.price,
+        discount: 50,
         price: product.price * 0.5
       }
     })
