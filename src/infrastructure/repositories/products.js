@@ -20,15 +20,15 @@ const findProductById = async (id) => {
   }
 }
 
-const findProducts = async (pattern) => {
+const findProducts = async (pattern, orderby) => {
   try {
-    const response = await getProducts(pattern)
+    const response = await getProducts(pattern, orderby)
 
     if (response.status === 200) {
       return response.data
     }
   } catch (error) {
-    console.log('ErrorX: ' + error)
+    console.log('Error: ' + error)
   }
 
   return {

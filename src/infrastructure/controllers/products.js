@@ -2,9 +2,9 @@ const { searchProducts } = require('../../application/use_cases/searchproducts')
 const productsRepository = require('../repositories/products')
 
 const getProducts = async (req, res, next) => {
-  const { query } = req
+  const { pattern, orderby } = req.query
 
-  const response = await searchProducts(productsRepository, query.pattern)
+  const response = await searchProducts(productsRepository, pattern, orderby)
   if (response === undefined) {
     res.status(500).json({ message: 'Error interno' })
     return next(false)

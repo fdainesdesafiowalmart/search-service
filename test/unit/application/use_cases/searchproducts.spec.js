@@ -97,7 +97,20 @@ describe('Application:UseCases', () => {
       const result = await searchProducts(mockRepository, searchPattern)
 
       expect(result).toStrictEqual(mockResponse)
-      expect(mockRepository.findProducts).toHaveBeenCalledWith(searchPattern)
+      expect(mockRepository.findProducts).toHaveBeenCalledWith(searchPattern, undefined)
+    })
+
+    it('should call findProducts passing sort criteria when search pattern is not a number', async () => {
+      mockRepository.findProducts.mockImplementation(() => {
+        return { ...mockResponse }
+      })
+      const searchPattern = 'x1234'
+      const orderby = 'brand'
+
+      const result = await searchProducts(mockRepository, searchPattern, orderby)
+
+      expect(result).toStrictEqual(mockResponse)
+      expect(mockRepository.findProducts).toHaveBeenCalledWith(searchPattern, orderby)
     })
 
     it('should return undefined when an error occurred', async () => {

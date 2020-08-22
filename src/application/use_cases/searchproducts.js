@@ -16,13 +16,13 @@ const applyDiscount = (pattern, products) => {
   }
 }
 
-const searchProducts = async ({ findProductById, findProducts }, pattern) => {
+const searchProducts = async ({ findProductById, findProducts }, pattern, orderby) => {
   try {
     let resolvedProducts
     if (isNumber(pattern)) {
       resolvedProducts = await findProductById(pattern)
     } else {
-      resolvedProducts = await findProducts(pattern)
+      resolvedProducts = await findProducts(pattern, orderby)
     }
     resolvedProducts.products = applyDiscount(pattern, resolvedProducts.products)
 

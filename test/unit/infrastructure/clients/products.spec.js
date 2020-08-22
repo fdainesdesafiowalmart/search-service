@@ -10,9 +10,15 @@ describe('Clients:Products', () => {
     process.env['PRODUCTS_SERVICE_APIKEY_VALUE'] = 'bar'
     axios.get.mockImplementation(() => true)
 
+    const expectedParams = {
+      headers: {
+        'x-walmart-product-service-key': 'bar'
+      }
+    }
+
     const result = await getProductById(1234)
 
-    expect(axios.get).toHaveBeenCalledWith('foobar/products/1234', { headers: {'x-walmart-product-service-key': 'bar'}})
+    expect(axios.get).toHaveBeenCalledWith('foobar/products/1234', expectedParams)
   })
 
   it('should request to getProducts endpoint with provided search pattern', async () => {
@@ -21,8 +27,18 @@ describe('Clients:Products', () => {
     process.env['PRODUCTS_SERVICE_APIKEY_VALUE'] = 'bar'
     axios.get.mockImplementation(() => true)
 
-    const result = await getProducts('hello+world')
+    const expectedParams = {
+      headers: {
+        'x-walmart-product-service-key': 'bar'
+      },
+      params: {
+        orderby: 'barfoo',
+        pattern: 'hello+world'
+      }
+    }
 
-    expect(axios.get).toHaveBeenCalledWith('foobar/products?pattern=hello+world', { headers: {'x-walmart-product-service-key': 'bar'}})
+    const result = await getProducts('hello+world', 'barfoo')
+
+    expect(axios.get).toHaveBeenCalledWith('foobar/products', expectedParams)
   })
 })

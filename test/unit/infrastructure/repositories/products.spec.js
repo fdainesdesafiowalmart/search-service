@@ -35,7 +35,6 @@ describe('Repositories:Products', () => {
       }
 
       const response = await findProductById(1234)
-      console.log(response)
 
       expect(response).toStrictEqual(expectedResponse)
     })
@@ -55,7 +54,6 @@ describe('Repositories:Products', () => {
       }
 
       const response = await findProductById(1234)
-      console.log(response)
 
       expect(response).toStrictEqual(expectedResponse)
     })
@@ -77,7 +75,6 @@ describe('Repositories:Products', () => {
       }
 
       const response = await findProductById(1234)
-      console.log(response)
 
       expect(response).toStrictEqual(expectedResponse)
     })
@@ -152,7 +149,6 @@ describe('Repositories:Products', () => {
       }
 
       const response = await findProducts(1234)
-      console.log(response)
 
       expect(response).toStrictEqual(expectedResponse)
     })

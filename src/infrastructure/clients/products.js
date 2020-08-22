@@ -4,7 +4,6 @@ const apiKeyHeader = process.env.PRODUCTS_SERVICE_APIKEY_HEADER || 'x-walmart-pr
 
 const resolveApiKeyHeaders = () => {
   const headers = {}
-
   headers[apiKeyHeader] = process.env.PRODUCTS_SERVICE_APIKEY_VALUE
 
   return {
@@ -12,11 +11,21 @@ const resolveApiKeyHeaders = () => {
   }
 }
 
-const getProducts = async (pattern) => {
-  const productsServiceUrl = process.env.PRODUCTS_SERVICE_URL
-  const endpoint = `${productsServiceUrl}/products?pattern=${pattern}`
+const resolveRequestParams = (pattern, orderby) => {
+  return {
+    ...resolveApiKeyHeaders(),
+    params: {
+      pattern: pattern,
+      orderby: orderby
+    }
+  }
+}
 
-  return axios.get(endpoint, resolveApiKeyHeaders())
+const getProducts = async (pattern, orderby) => {
+  const productsServiceUrl = process.env.PRODUCTS_SERVICE_URL
+  const endpoint = `${productsServiceUrl}/products`
+
+  return axios.get(endpoint, resolveRequestParams(pattern, orderby))
 }
 
 const getProductById = async (id) => {
