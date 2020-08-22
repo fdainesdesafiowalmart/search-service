@@ -1,6 +1,9 @@
 jest.mock('infrastructure/repositories/products')
 const repositoryMock = require('infrastructure/repositories/products')
 
+jest.mock('infrastructure/core/apikey')
+const apiKeyMock = require('infrastructure/core/apikey')
+
 const request = require('supertest')
 const app = require('index')
 
@@ -18,6 +21,7 @@ describe('Search Endpoint', () => {
       repositoryMock.findProductById.mockImplementation(() => {
         return { ...baseResponse }
       })
+      apiKeyMock.isValidApiKey.mockImplementation(() => true)
 
       const res = await request(app)
         .get('/search')
@@ -37,6 +41,7 @@ describe('Search Endpoint', () => {
       repositoryMock.findProducts.mockImplementation(() => {
         return { ...baseResponse }
       })
+      apiKeyMock.isValidApiKey.mockImplementation(() => true)
 
       const res = await request(app)
         .get('/search')
@@ -61,6 +66,7 @@ describe('Search Endpoint', () => {
           { foo: 'bar', price: 617, discount: 50, originalPrice: 1234 }
         ]
       }
+      apiKeyMock.isValidApiKey.mockImplementation(() => true)
 
       const res = await request(app)
         .get('/search')
@@ -74,6 +80,7 @@ describe('Search Endpoint', () => {
       repositoryMock.findProducts.mockImplementation(() => {
         throw new Error('something bad')
       })
+      apiKeyMock.isValidApiKey.mockImplementation(() => true)
 
       const res = await request(app)
         .get('/search')
@@ -83,5 +90,19 @@ describe('Search Endpoint', () => {
       expect(res.body).toStrictEqual({ message: 'Error interno' })
     })
 
+    it('should return status code 401 when api key is not valid', async () => {
+      repositoryMock.findProducts.mockImplementation(() => {
+        return [{
+          id: 9999,
+          foo: 'bar'
+        }]
+      })
+      apiKeyMock.isValidApiKey.mockImplementation(() => false)
+
+      const res = await request(app)
+        .get('/search')
+
+      expect(res.statusCode).toEqual(401)
+    })
   })
 })
