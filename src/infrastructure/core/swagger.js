@@ -6,12 +6,12 @@ const swaggerUi = require('swagger-ui-express')
 const swaggerOptions = {
   swaggerDefinition: {
     info: {
-      title: 'Products Service',
-      description: 'xxxxxxx',
+      title: 'Search Service',
+      description: 'Exposes search capabilities',
       contact: {
         name: 'Francisco Daines'
       },
-      servers: ['http://localhost:3000']
+      servers: ['http://localhost']
     }
   },
   apis: ['**/routers/*.js']

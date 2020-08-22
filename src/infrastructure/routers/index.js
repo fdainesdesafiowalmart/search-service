@@ -18,6 +18,42 @@ const { getProducts } = require('../controllers/products')
 */
 router.get('/health', healthCheck)
 
+/**
+* @swagger
+* /search:
+*   get:
+*     description: Search for products based en pattern
+*     responses:
+*       '200':
+*         description: The service returns the list of products that satisfies the search condition
+*         schema:
+*           type: object
+*           properties:
+*             total:
+*               type: integer
+*               description: The number of products that satisfies the search condition
+*             products:
+*               type: array
+*               description: The list of products that satisfies the search condition
+*               items:
+*                 type: object
+*                 properties:
+*                   id:
+*                     type: integer
+*                     description: The product id
+*                   brand:
+*                     type: string
+*                     description: The product brand
+*                   description:
+*                     type: string
+*                     description: The product description
+*                   image:
+*                     type: string
+*                     description: The product image URL
+*                   price:
+*                     type: integer
+*                     description: The product price
+*/
 router.get('/search', checkApiKey, getProducts)
 
 module.exports = router
