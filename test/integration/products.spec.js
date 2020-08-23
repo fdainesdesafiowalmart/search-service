@@ -8,6 +8,8 @@ const request = require('supertest')
 const app = require('index')
 
 describe('Search Endpoint', () => {
+  const contextUrl = '/search-service/v1'
+
   afterEach(async () => await app.close())
 
   describe('GET /search', () => {
@@ -24,7 +26,7 @@ describe('Search Endpoint', () => {
       apiKeyMock.isValidApiKey.mockImplementation(() => true)
 
       const res = await request(app)
-        .get('/search')
+        .get(contextUrl + '/search')
         .query({ pattern: '123' })
 
       expect(res.statusCode).toEqual(200)
@@ -44,7 +46,7 @@ describe('Search Endpoint', () => {
       apiKeyMock.isValidApiKey.mockImplementation(() => true)
 
       const res = await request(app)
-        .get('/search')
+        .get(contextUrl + '/search')
         .query({ pattern: 'Test1' })
 
       expect(res.statusCode).toEqual(200)
@@ -69,7 +71,7 @@ describe('Search Endpoint', () => {
       apiKeyMock.isValidApiKey.mockImplementation(() => true)
 
       const res = await request(app)
-        .get('/search')
+        .get(contextUrl + '/search')
         .query({ pattern: 'abba' })
 
       expect(res.statusCode).toEqual(200)
@@ -83,7 +85,7 @@ describe('Search Endpoint', () => {
       apiKeyMock.isValidApiKey.mockImplementation(() => true)
 
       const res = await request(app)
-        .get('/search')
+        .get(contextUrl + '/search')
         .query({ pattern: 'Test1' })
 
       expect(res.statusCode).toEqual(500)
@@ -100,7 +102,7 @@ describe('Search Endpoint', () => {
       apiKeyMock.isValidApiKey.mockImplementation(() => false)
 
       const res = await request(app)
-        .get('/search')
+        .get(contextUrl + '/search')
 
       expect(res.statusCode).toEqual(401)
     })
